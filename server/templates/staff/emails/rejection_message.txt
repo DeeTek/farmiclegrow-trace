@@ -1,0 +1,13 @@
+Hello {{ full_name }},
+
+Thank you for applying to join {{ platform }}.
+
+After careful review, we are unable to move forward with your application at this time.
+
+Reason:
+  {{ reason }}
+
+We appreciate the time you took to apply and wish you the best in your future endeavours.
+
+Regards,
+The {{ platform }} Team

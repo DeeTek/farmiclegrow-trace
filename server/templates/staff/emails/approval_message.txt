@@ -1,0 +1,18 @@
+Hello {{ full_name }},
+
+Congratulations. Your application to join {{ platform }} has been approved.
+
+Here are your details:
+
+  Staff ID : {{ staff_id }}
+  Role     : {{ role }}
+
+Before you can log in, you need to set your password. Use the link below.
+This link can only be used once and will expire in 24 hours.
+
+  {{ setup_link }}
+
+If you did not apply for this position, please ignore this email.
+
+Welcome to the team,
+The {{ platform }} Team

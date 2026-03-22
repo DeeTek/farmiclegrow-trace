@@ -1,0 +1,21 @@
+# Python
+*.pyc
+__pycache__/
+venv/
+*.env
+.env
+
+# Root scripts
+/*.py
+
+# Node
+node_modules/
+.next/
+.env.local
+
+# Django
+staticfiles/
+media/
+db.sqlite3
+/*.sh
+Core.md
