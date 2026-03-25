@@ -55,13 +55,6 @@ class RegistryError(Exception):
 
 class BaseFilterSet(filters.FilterSet):
     """
-    Base FilterSet every app's FilterSet should extend.
-
-    Provides:
-      is_active      — active/deleted filter
-      created_after  — created_at >= date
-      created_before — created_at <= date
-      search         — multi-field keyword search across SEARCH_FIELDS
 
     Usage:
         class FarmerFilter(BaseFilterSet):
@@ -99,18 +92,6 @@ class BaseFilterSet(filters.FilterSet):
 # =============================================================================
 
 class QueryNormalizer:
-    """
-    Cleans and normalises raw query strings before they hit the database.
-
-    Steps applied in order:
-      1. Decode to str if bytes
-      2. NFC unicode normalisation (prevents ā vs a + combining accent mismatches)
-      3. Strip leading/trailing whitespace
-      4. Remove ASCII control characters (prevent injection through \\x00 etc.)
-      5. Collapse multiple consecutive spaces to a single space
-      6. Lowercase (fix #5 — original only stripped, did not lowercase)
-      7. Truncate to MAX_QUERY_LEN
-    """
     _CONTROL_RE = re.compile(r"[\x00-\x1f\x7f]")
 
     @classmethod
@@ -1293,12 +1274,6 @@ def register_search(
     allow_override: bool            = False,
 ) -> None:
     """
-    Public helper — registers a model for global search and autocomplete.
-    Calls SearchRegistry.register() with full validation.
-
-    Call from each app's AppConfig.ready().  The call is idempotent when
-    Django autoreloads because AppConfig guards against repeated ready() calls,
-    and allow_override=False raises RegistryError on duplicates.
 
     Example:
         register_search(

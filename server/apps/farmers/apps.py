@@ -6,11 +6,11 @@ class FarmersConfig(AppConfig):
     _registered     = False
 
     def ready(self):
-        if self.__class__._registered:
-            return
-        self.__class__._registered = True
+        from apps.core.signals import connect_search_signal
+        from .models import Farmer
 
         from django.db.models import Q
+
         from apps.core.search import register_search
         from .models import Farmer, Farm, Product, FarmVisit
         from .serializers import (
@@ -19,6 +19,10 @@ class FarmersConfig(AppConfig):
             ProductListSerializer,
             FarmVisitListSerializer,
         )
+        connect_search_signal(Farmer)
+        if self.__class__._registered:
+            return
+        self.__class__._registered = True
 
         # ── Farmer ────────────────────────────────────────────────────────────
         register_search(

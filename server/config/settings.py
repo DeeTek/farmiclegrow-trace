@@ -163,6 +163,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+FRONTEND_BASE_URL = 'http://localhost:3000'
+
 """SWAGGER_SETTINGS = {
   "SECURITY_DEFINITIONS": {
     "Bearer": {
@@ -214,6 +216,7 @@ REST_AUTH = {
   "JWT_AUTH_RETURN_EXPIRATION": True,
   
   "REGISTER_SERIALIZER": "apps.accounts.serializers.RegisterSerializer",
+  'LOGIN_SERIALIZER': 'apps.accounts.serializers.CustomLoginSerializer',
   "RESEND_EMAIL_SERIALIZER": 'apps.accounts.serializers.CustomResendEmailVerificationSerializer',
   "PASSWORD_RESET_CONFIRM_SERIALIZER": "apps.accounts.serializers.PasswordResetConfirmSerializer",
   #"USER_DETAILS_SERIALIZER": "apps.accounts.serializers.UserDetailSerializer",

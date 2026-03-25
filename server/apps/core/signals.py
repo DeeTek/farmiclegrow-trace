@@ -253,15 +253,47 @@ def notify_on_approval(sender, instance, decision, decided_by, **kwargs):
 
 @receiver(post_save)
 def invalidate_search_cache(sender, instance, **kwargs):
+    """
+    Invalidate search cache for registered models (list-safe version).
+    """
+    # Skip models you don't want cached
+    if sender.__name__ in {"User"}:
+        return
+
     try:
         from apps.core.search import SearchRegistry, SearchCache
-        registry = SearchRegistry.all()
-        for key, entry in registry.items():
-            if entry["model"] is sender:
-                SearchCache.invalidate_group(key)
-    except Exception as exc:
-        logger.warning("[Search Cache] Invalidation failed: %s", exc)
 
+        registry = SearchRegistry.all()
+
+        if not isinstance(registry, list):
+            logger.warning(
+                "[Search Cache] Unexpected registry type: %s",
+                type(registry),
+            )
+            return
+
+        for entry in registry:
+            model_cls = entry.get("model")
+            key = entry.get("key")
+
+            if model_cls is sender:
+                try:
+                    SearchCache.invalidate_group(key)
+                    logger.debug(
+                        "[Search Cache] Invalidated '%s' for %s",
+                        key, sender.__name__,
+                    )
+                except Exception as exc_inner:
+                    logger.warning(
+                        "[Search Cache] Failed for '%s': %s",
+                        key, exc_inner,
+                    )
+
+    except Exception as exc:
+        logger.warning(
+            "[Search Cache] General error for %s: %s",
+            sender.__name__, exc
+        )
 
 # =============================================================================
 # SEARCH SIGNAL CONNECTOR  (called from each app's AppConfig.ready())

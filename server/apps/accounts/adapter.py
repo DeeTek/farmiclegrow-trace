@@ -1,33 +1,3 @@
-"""
-apps/accounts/adapters.py
-
-Two adapters that hook into django-allauth's extension points.
-
-CustomAccountAdapter
-    Extends DefaultAccountAdapter (email login, registration, password reset).
-    - get_email_confirmation_url  → points to the Next.js frontend
-    - get_password_reset_url      → points to the Next.js frontend with base64 uid
-    - send_mail                   → converts allauth's base36 uid to base64,
-                                    then dispatches via Celery (non-blocking)
-    - is_open_for_signup          → toggle via settings.ACCOUNT_ALLOW_REGISTRATION
-    - clean_email                 → normalise to lowercase
-
-CustomSocialAccountAdapter
-    Extends DefaultSocialAccountAdapter (Google / Facebook / Apple).
-    - pre_social_login  → auto-connects social account to an existing
-                          email-based account (prevents duplicate users)
-    - populate_user     → splits provider "name" → first / last name;
-                          reads Apple name from session on first login
-    - save_user         → marks email verified for trusted providers
-                          (Google, Apple) — skips confirmation email
-    - is_open_for_signup → same ACCOUNT_ALLOW_REGISTRATION gate
-
-Settings required in settings.py:
-    ACCOUNT_ADAPTER       = 'apps.accounts.adapters.CustomAccountAdapter'
-    SOCIALACCOUNT_ADAPTER = 'apps.accounts.adapters.CustomSocialAccountAdapter'
-    FRONTEND_BASE_URL     = 'https://yourapp.com'
-"""
-
 import logging
 
 from django.conf import settings
@@ -97,80 +67,70 @@ class CustomAccountAdapter(DefaultAccountAdapter):
     # ── Email sending ─────────────────────────────────────────
 
     def send_mail(self, template_prefix, email, context):
-        """
-        Replaces allauth's default synchronous send_mail with a Celery task.
-
-        Key transformation: allauth puts uid in context as base36
-        (e.g. "1k" for pk=56).  We swap it to urlsafe_base64 so the
-        frontend URL, email template, and our serializer all use the
-        same encoding consistently.
-
-        After normalising context the email is handed off to
-        tasks.dispatch_email which wraps the Celery task in on_commit —
-        so email is never sent for a transaction that later rolls back.
-        """
+ 
         from .tasks import dispatch_email
+        
+        url = context.get("activate_url", "")
+        
+        context.update(self._get_request_meta(context))
+        context.update(self._get_company_meta())
 
         # Swap allauth's base36 uid → urlsafe_base64
         if "uid" in context and context.get("user"):
             context["uid"] = urlsafe_base64_encode(force_bytes(context["user"].pk))
-
-        context.setdefault("frontend_url", settings.FRONTEND_BASE_URL)
+        
+        if "user" in context and hasattr(context["user"], "pk"):
+          u = context["user"]
+          context["user"] = {
+            "pk": u.pk,
+            "email": u.email,
+            "first_name": getattr(u, "first_name", "") or "",
+            "last_name":  getattr(u, "last_name", "")  or "",
+            "full_name":  u.get_full_name() if hasattr(u, "get_full_name") else u.email,
+          }
 
         dispatch_email(
             template_prefix = template_prefix,
-            to_email        = email,
-            context         = _make_serialisable(context),
+            to_email = email,
+            context = _make_serialisable(context),
         )
 
     # ── Registration gate ─────────────────────────────────────
 
     def is_open_for_signup(self, request):
-        """
-        Set ACCOUNT_ALLOW_REGISTRATION = False in settings.py to close
-        new signups without a code deploy (useful for invite-only periods
-        or maintenance windows).
-        """
+
         return getattr(settings, "ACCOUNT_ALLOW_REGISTRATION", True)
 
     # ── Email normalisation ───────────────────────────────────
 
     def clean_email(self, email):
-        """
-        Lowercase + strip before allauth stores the email.
-        Prevents duplicate accounts from case variations (John@ vs john@).
-        """
         return super().clean_email(email).lower().strip()
+    
+    def _get_request_meta(self, context: dict) -> dict:
+      from django.utisl.timezone import now
+      
+      request = context.get("request")
+      request_date = now().strftime("%d %b %Y, %H:%M UTC")
+      
+      if not request:
+        return {"user_ip": "", "request_date": ""}
+        
+      x_forwarded = request.META.get("HTTP_X_FORWARDED_FOR")
+      user_ip = (x_forwarded.split(",")[0].strip() if x_forwarded else request.META.get("REMOTE_ADDR", ""))
 
+      return {"user_ip": user_ip, "request_date": request_date}
+    
+    def _get_company_meta(self) -> dict:
+      from django.utisl.timezone import now
+      
+      return {"current_year":   now().year, "company_address": getattr(settings, "COMPANY_ADDRESS", ""),}
+      
 
 # =============================================================================
 # SOCIAL AUTH ADAPTER
 # =============================================================================
 
 class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
-    """
-    Customises allauth's social login flow for Google, Facebook, Apple.
-
-    Three key behaviours:
-
-    1. pre_social_login  — auto-connects a social account to an existing
-                           password-based account with the same email.
-                           Without this, a user who signed up with
-                           john@example.com + password, then tries
-                           "Sign in with Google", would get a collision
-                           error instead of a smooth account merge.
-
-    2. populate_user     — Facebook often provides only a combined "name"
-                           field. This hook splits it into first + last.
-                           Apple sends name parts only on the very first
-                           login; we read them from session where
-                           AppleLoginView cached them.
-
-    3. save_user         — Google and Apple verify email ownership before
-                           granting a token, so we mark the allauth
-                           EmailAddress as verified immediately. Facebook
-                           is excluded because it allows unverified emails.
-    """
 
     TRUSTED_PROVIDERS = {"google", "apple"}
 

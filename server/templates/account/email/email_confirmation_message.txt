@@ -1,0 +1,56 @@
+╔══════════════════════════════════════════════════╗
+║   FARMICLEGROW · TRACE                          ║
+║   Farm-to-Buyer Traceability Platform           ║
+╚══════════════════════════════════════════════════╝
+
+↻  NEW CONFIRMATION LINK GENERATED
+────────────────────────────────────────────────────
+
+Hi {{ user_name|default:"there" }},
+
+You requested a new email confirmation link.
+
+We've generated a fresh link for you below. Any
+previous confirmation links for this account have
+been invalidated.
+
+Please confirm your email address by visiting:
+
+  ➜  {{ confirmation_url }}
+
+────────────────────────────────────────────────────
+ℹ️  WHAT CHANGED?
+
+  • Your previous confirmation link is now expired
+  • This new link is ready to use immediately
+  • Once used, this link cannot be used again
+
+────────────────────────────────────────────────────
+⏰  This link expires in 24 hours (single-use).
+    After that, visit the sign-in page to
+    request another confirmation email.
+
+🔒  Didn't request this? Your account is safe —
+    just ignore this email. No changes were made.
+
+    Request details:
+    IP Address : {{ user_ip }}
+    Date/Time  : {{ request_date }}
+
+────────────────────────────────────────────────────
+HAVING TROUBLE?
+
+If the link doesn't work, copy the entire URL and
+paste it into your browser's address bar.
+
+Contact support: {{ support_email }}
+Help centre:     {{ help_url }}
+
+╔══════════════════════════════════════════════════╗
+║  © {{ current_year }} FarmicleGrow Ltd.                     ║
+║  {{ company_address }}
+║                                                  ║
+║  Privacy: {{ privacy_url }}
+║  Terms:   {{ terms_url }}
+║  Unsubscribe: {{ unsubscribe_url }}
+╚══════════════════════════════════════════════════╝

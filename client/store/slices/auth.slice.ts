@@ -5,7 +5,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { AuthUser } from "@/types";
 
 interface AuthState {
-  user:          AuthUser | null;
+  user: AuthUser | null;
   isHydrated:    boolean;     // true once auth has been checked on mount
   accessToken:   string | null;  // only for Bearer flows (not HttpOnly)
 }
@@ -40,7 +40,7 @@ export const authSlice = createSlice({
 export const { setUser, setAccessToken, logout, markHydrated } = authSlice.actions;
 
 // Selectors
-export const selectUser         = (s: { auth: AuthState }) => s.auth.user;
+export const selectUser = (s: { auth: AuthState }) => s.auth.user;
 export const selectIsHydrated   = (s: { auth: AuthState }) => s.auth.isHydrated;
 export const selectAccessToken  = (s: { auth: AuthState }) => s.auth.accessToken;
 export const selectIsAdmin      = (s: { auth: AuthState }) =>

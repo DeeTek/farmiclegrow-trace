@@ -1,0 +1,54 @@
+╔══════════════════════════════════════════════════╗
+║   FARMICLEGROW · TRACE                          ║
+║   Farm-to-Buyer Traceability Platform           ║
+╚══════════════════════════════════════════════════╝
+
+✅  VERIFY YOUR EMAIL ADDRESS
+────────────────────────────────────────────────────
+
+Hi {{ user_name|default:"there" }},
+
+Welcome to FarmicleGrow Trace!
+
+You're just one step away from accessing the platform
+that connects smallholder farmers to international
+buyers through verified, GPS-tagged traceability.
+
+Please verify your email address by visiting:
+
+  ➜  {{ confirmation_url }}
+
+────────────────────────────────────────────────────
+  🌱  Farm Tracing    — GPS-tagged farm data
+  🔍  QR Traceability — Scan any product origin
+  🌍  Global Buyers   — Connect internationally
+────────────────────────────────────────────────────
+
+⏰  IMPORTANT: This link expires in 24 hours.
+    If it expires, visit the sign-in page to
+    request a new confirmation email.
+
+🔒  SECURITY: If you did not create this account,
+    please ignore this email. No action is needed.
+
+    Request details:
+    IP Address : {{ user_ip }}
+    Date/Time  : {{ request_date }}
+
+────────────────────────────────────────────────────
+NEED HELP?
+
+If the link above doesn't work, copy the full URL
+and paste it into your browser's address bar.
+
+Contact support: {{ support_email }}
+Help centre:     {{ help_url }}
+
+╔══════════════════════════════════════════════════╗
+║  © {{ current_year }} FarmicleGrow Ltd.                     ║
+║  {{ company_address }}
+║                                                  ║
+║  Privacy: {{ privacy_url }}
+║  Terms:   {{ terms_url }}
+║  Unsubscribe: {{ unsubscribe_url }}
+╚══════════════════════════════════════════════════╝

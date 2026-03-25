@@ -447,3 +447,923 @@ Traceback (most recent call last):
     )
 TypeError: 'Meta.fields' must not contain non-model field names: region
 [2026-03-20 15:17:31] ERROR    django.server | "GET /swagger/?format=openapi HTTP/1.1" 500 185539
+[2026-03-24 17:45:30] ERROR    django.request | Internal Server Error: /account/v1/register/
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/views/generic/base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/dj_rest_auth/registration/views.py", line 47, in dispatch
+    return super().dispatch(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/views.py", line 114, in post
+    super().post(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/generics.py", line 194, in post
+    return self.create(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/dj_rest_auth/registration/views.py", line 68, in create
+    user = self.perform_create(serializer)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/dj_rest_auth/registration/views.py", line 92, in perform_create
+    complete_signup(
+    ~~~~~~~~~~~~~~~^
+        self.request._request, user,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        allauth_account_settings.EMAIL_VERIFICATION,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None,
+        ^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/utils.py", line 102, in complete_signup
+    return flows.signup.complete_signup(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        signal_kwargs=signal_kwargs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/signup.py", line 113, in complete_signup
+    return perform_login(request, login)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/login.py", line 93, in perform_login
+    return resume_login(request, login)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/login.py", line 102, in resume_login
+    response = ctrl.handle()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/stages.py", line 121, in handle
+    response, cont = stage.handle()
+                     ~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/stages.py", line 159, in handle
+    send_verification_email_at_login(self.request, login)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/email_verification.py", line 292, in send_verification_email_at_login
+    sent = send_verification_email_at_real_login(request, login)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/email_verification.py", line 306, in send_verification_email_at_real_login
+    return send_verification_email_to_address(request, address, signup=login.signup)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/email_verification.py", line 267, in send_verification_email_to_address
+    confirmation = address.send_confirmation(request, signup=signup)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/models.py", line 112, in send_confirmation
+    confirmation.send(request, signup=signup)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/models.py", line 190, in send
+    super().send(request=request, signup=signup)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/models.py", line 141, in send
+    get_adapter().send_confirmation_mail(request, self, signup)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/adapter.py", line 680, in send_confirmation_mail
+    "activate_url": self.get_email_confirmation_url(
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request, emailconfirmation
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/adapter.py", line 77, in get_email_confirmation_url
+    return f"{settings.FRONTEND_BASE_URL}/verify-email?key={emailconfirmation.key}"
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/conf/__init__.py", line 77, in __getattr__
+    val = getattr(_wrapped, name)
+AttributeError: 'Settings' object has no attribute 'FRONTEND_BASE_URL'
+[2026-03-24 17:45:30] ERROR    django.server | "POST /account/v1/register/ HTTP/1.1" 500 33412
+[2026-03-24 17:54:43] ERROR    celery.backends.redis | Connection to Redis lost: Retry (0/20) now.
+[2026-03-24 17:54:43] ERROR    celery.backends.redis | Connection to Redis lost: Retry (1/20) in 1.00 second.
+[2026-03-24 17:54:44] ERROR    celery.backends.redis | Connection to Redis lost: Retry (2/20) in 1.00 second.
+[2026-03-24 17:54:45] ERROR    celery.backends.redis | Connection to Redis lost: Retry (3/20) in 1.00 second.
+[2026-03-24 17:54:46] ERROR    celery.backends.redis | Connection to Redis lost: Retry (4/20) in 1.00 second.
+[2026-03-24 17:54:47] ERROR    celery.backends.redis | Connection to Redis lost: Retry (5/20) in 1.00 second.
+[2026-03-24 17:54:48] ERROR    celery.backends.redis | Connection to Redis lost: Retry (6/20) in 1.00 second.
+[2026-03-24 17:54:49] ERROR    celery.backends.redis | Connection to Redis lost: Retry (7/20) in 1.00 second.
+[2026-03-24 17:54:50] ERROR    celery.backends.redis | Connection to Redis lost: Retry (8/20) in 1.00 second.
+[2026-03-24 17:54:51] ERROR    celery.backends.redis | Connection to Redis lost: Retry (9/20) in 1.00 second.
+[2026-03-24 17:54:53] ERROR    celery.backends.redis | Connection to Redis lost: Retry (10/20) in 1.00 second.
+[2026-03-24 17:54:54] ERROR    celery.backends.redis | Connection to Redis lost: Retry (11/20) in 1.00 second.
+[2026-03-24 17:54:55] ERROR    celery.backends.redis | Connection to Redis lost: Retry (12/20) in 1.00 second.
+[2026-03-24 17:54:56] ERROR    celery.backends.redis | Connection to Redis lost: Retry (13/20) in 1.00 second.
+[2026-03-24 17:54:57] ERROR    celery.backends.redis | Connection to Redis lost: Retry (14/20) in 1.00 second.
+[2026-03-24 17:54:58] ERROR    celery.backends.redis | Connection to Redis lost: Retry (15/20) in 1.00 second.
+[2026-03-24 17:54:59] ERROR    celery.backends.redis | Connection to Redis lost: Retry (16/20) in 1.00 second.
+[2026-03-24 17:55:00] ERROR    celery.backends.redis | Connection to Redis lost: Retry (17/20) in 1.00 second.
+[2026-03-24 17:55:01] ERROR    celery.backends.redis | Connection to Redis lost: Retry (18/20) in 1.00 second.
+[2026-03-24 17:55:02] ERROR    celery.backends.redis | Connection to Redis lost: Retry (19/20) in 1.00 second.
+[2026-03-24 17:55:03] CRITICAL celery.backends.redis | 
+Retry limit exceeded while trying to reconnect to the Celery redis result store backend. The Celery application must be restarted.
+
+[2026-03-24 17:55:03] ERROR    django.request | Internal Server Error: /account/v1/register/
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1002, in connect_check_health
+    sock = self._connect()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1514, in _connect
+    raise err
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1498, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 130, in reconnect_on_error
+    yield
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 180, in _consume_from
+    self._pubsub.subscribe(key)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/client.py", line 1265, in subscribe
+    ret_val = self.execute_command("SUBSCRIBE", *new_channels.keys())
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/client.py", line 1023, in execute_command
+    self.connection = self.connection_pool.get_connection()
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/utils.py", line 236, in wrapper
+    return func(*args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 2960, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 975, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 976, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1024, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:6379. Connection refused.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1002, in connect_check_health
+    sock = self._connect()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1514, in _connect
+    raise err
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1498, in _connect
+    sock.connect(socket_address)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 133, in reconnect_on_error
+    self._ensure(self._reconnect_pubsub, ())
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 428, in ensure
+    return retry_over_time(
+        fun, self.connection_errors, args, {},
+        partial(self.on_connection_error, max_retries),
+        **retry_policy)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/kombu/utils/functional.py", line 318, in retry_over_time
+    return fun(*args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 109, in _reconnect_pubsub
+    metas = self.backend.client.mget(self.subscribed_to)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/commands/core.py", line 2241, in mget
+    return self.execute_command("MGET", *args, **options)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/client.py", line 716, in execute_command
+    return self._execute_command(*args, **options)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/client.py", line 722, in _execute_command
+    conn = self.connection or pool.get_connection()
+                              ~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/utils.py", line 236, in wrapper
+    return func(*args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 2960, in get_connection
+    connection.connect()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 975, in connect
+    self.retry.call_with_retry(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        lambda: self.connect_check_health(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        lambda error: self.disconnect(error),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/retry.py", line 132, in call_with_retry
+    raise error
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/retry.py", line 120, in call_with_retry
+    return do()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 976, in <lambda>
+    lambda: self.connect_check_health(
+            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        check_health=True, retry_socket_connect=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/redis/connection.py", line 1024, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 111 connecting to 127.0.0.1:6379. Connection refused.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/core/handlers/base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/views/generic/base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/utils/decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/views/decorators/debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/dj_rest_auth/registration/views.py", line 47, in dispatch
+    return super().dispatch(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 515, in dispatch
+    response = self.handle_exception(exc)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 475, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 486, in raise_uncaught_exception
+    raise exc
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/views.py", line 114, in post
+    super().post(request, *args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/rest_framework/generics.py", line 194, in post
+    return self.create(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/dj_rest_auth/registration/views.py", line 68, in create
+    user = self.perform_create(serializer)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/dj_rest_auth/registration/views.py", line 92, in perform_create
+    complete_signup(
+    ~~~~~~~~~~~~~~~^
+        self.request._request, user,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        allauth_account_settings.EMAIL_VERIFICATION,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None,
+        ^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/utils.py", line 102, in complete_signup
+    return flows.signup.complete_signup(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        request,
+        ^^^^^^^^
+    ...<3 lines>...
+        signal_kwargs=signal_kwargs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/signup.py", line 113, in complete_signup
+    return perform_login(request, login)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/login.py", line 93, in perform_login
+    return resume_login(request, login)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/login.py", line 102, in resume_login
+    response = ctrl.handle()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/stages.py", line 121, in handle
+    response, cont = stage.handle()
+                     ~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/stages.py", line 159, in handle
+    send_verification_email_at_login(self.request, login)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/email_verification.py", line 292, in send_verification_email_at_login
+    sent = send_verification_email_at_real_login(request, login)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/email_verification.py", line 306, in send_verification_email_at_real_login
+    return send_verification_email_to_address(request, address, signup=login.signup)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/internal/flows/email_verification.py", line 267, in send_verification_email_to_address
+    confirmation = address.send_confirmation(request, signup=signup)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/models.py", line 112, in send_confirmation
+    confirmation.send(request, signup=signup)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/models.py", line 190, in send
+    super().send(request=request, signup=signup)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/models.py", line 141, in send
+    get_adapter().send_confirmation_mail(request, self, signup)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/adapter.py", line 689, in send_confirmation_mail
+    self.send_mail(email_template, emailconfirmation.email_address.email, ctx)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/adapter.py", line 120, in send_mail
+    dispatch_email(
+    ~~~~~~~~~~~~~~^
+        template_prefix = template_prefix,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        to_email        = email,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+        context         = _make_serialisable(context),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 101, in dispatch_email
+    transaction.on_commit(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        lambda: send_email_task.delay(
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        )
+        ^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/db/transaction.py", line 134, in on_commit
+    get_connection(using).on_commit(func, robust)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/db/backends/base/base.py", line 750, in on_commit
+    func()
+    ~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 102, in <lambda>
+    lambda: send_email_task.delay(
+            ~~~~~~~~~~~~~~~~~~~~~^
+        template_prefix = template_prefix,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        to_email        = to_email,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        context         = context,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/task.py", line 444, in delay
+    return self.apply_async(args, kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/task.py", line 608, in apply_async
+    return app.send_task(
+           ~~~~~~~~~~~~~^
+        self.name, args, kwargs, task_id=task_id, producer=producer,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        **options
+        ^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 946, in send_task
+    self.backend.on_task_call(P, task_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 417, in on_task_call
+    self.result_consumer.consume_from(task_id)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 172, in consume_from
+    return self.start(task_id)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 150, in start
+    self._consume_from(initial_task_id)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 179, in _consume_from
+    with self.reconnect_on_error():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/backends/redis.py", line 136, in reconnect_on_error
+    raise RuntimeError(E_RETRY_LIMIT_EXCEEDED) from e
+RuntimeError: 
+Retry limit exceeded while trying to reconnect to the Celery redis result store backend. The Celery application must be restarted.
+
+[2026-03-24 17:55:03] ERROR    django.server | "POST /account/v1/register/ HTTP/1.1" 500 43426
+[2026-03-25 07:31:21] ERROR    celery.utils.dispatch.signal | Signal handler <bound method DjangoFixup.on_import_modules of <celery.fixups.django.DjangoFixup object at 0xea51f6a8>> raised: SyntaxError("f-string: expecting '=', or '!', or ':', or '}'", ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/adapter.py', 47, 27, '        return f"{settings;!!!.FRONTEND_BASE_URL}/verify-email?key={emailconfirmation.key}"\n', 47, 28))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/fixups/django.py", line 103, in on_import_modules
+    self.worker_fixup.validate_models()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/fixups/django.py", line 154, in validate_models
+    run_checks()
+    ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/core/checks/registry.py", line 89, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/checks.py", line 9, in adapter_check
+    adapter = get_adapter()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/adapter.py", line 995, in get_adapter
+    return import_attribute(app_settings.ADAPTER)(request)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/utils.py", line 117, in import_attribute
+    ret = getattr(importlib.import_module(pkg), attr)
+                  ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/adapter.py", line 47
+    return f"{settings;!!!.FRONTEND_BASE_URL}/verify-email?key={emailconfirmation.key}"
+                      ^
+SyntaxError: f-string: expecting '=', or '!', or ':', or '}'
+[2026-03-25 07:31:21] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xea508cb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xea51f258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 07:31:23] ERROR    celery.utils.dispatch.signal | Signal handler <bound method DjangoFixup.on_import_modules of <celery.fixups.django.DjangoFixup object at 0xe81c66a8>> raised: SyntaxError("f-string: expecting '=', or '!', or ':', or '}'", ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/adapter.py', 47, 27, '        return f"{settings;!!!.FRONTEND_BASE_URL}/verify-email?key={emailconfirmation.key}"\n', 47, 28))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/fixups/django.py", line 103, in on_import_modules
+    self.worker_fixup.validate_models()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/fixups/django.py", line 154, in validate_models
+    run_checks()
+    ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/django/core/checks/registry.py", line 89, in run_checks
+    new_errors = check(app_configs=app_configs, databases=databases)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/checks.py", line 9, in adapter_check
+    adapter = get_adapter()
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/account/adapter.py", line 995, in get_adapter
+    return import_attribute(app_settings.ADAPTER)(request)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/allauth/utils.py", line 117, in import_attribute
+    ret = getattr(importlib.import_module(pkg), attr)
+                  ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/adapter.py", line 47
+    return f"{settings;!!!.FRONTEND_BASE_URL}/verify-email?key={emailconfirmation.key}"
+                      ^
+SyntaxError: f-string: expecting '=', or '!', or ':', or '}'
+[2026-03-25 07:31:23] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xe81afcb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xe81c6258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 07:43:09] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xefc2ecb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xefc46258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 07:43:10] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xeb771cb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xeb788258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 07:45:18] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xf30f8cb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xf3110258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 07:45:19] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xebde2cb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xebdfa258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 08:02:21] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xec8b2cb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xec8ca258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+[2026-03-25 08:02:22] ERROR    celery.utils.dispatch.signal | Signal handler <promise@0xf416dcb0 --> <bound method Celery._autodiscover_tasks of <Celery farmiclegrow_trace at 0xf4184258>>> raised: SyntaxError('invalid syntax. Perhaps you forgot a comma?', ('/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py', 62, 19, '            url = url\n', 63, 20))
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/utils/dispatch/signal.py", line 280, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ~~~~~~~~~~^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 805, in _autodiscover_tasks
+    return self._autodiscover_tasks_from_fixups(related_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 814, in _autodiscover_tasks_from_fixups
+    return self._autodiscover_tasks_from_names([
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+        pkg for fixup in self._fixups
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        if hasattr(fixup, 'autodiscover_tasks')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        for pkg in fixup.autodiscover_tasks()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ], related_name=related_name)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/app/base.py", line 809, in _autodiscover_tasks_from_names
+    return self.loader.autodiscover_tasks(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        packages() if callable(packages) else packages, related_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 220, in autodiscover_tasks
+    mod.__name__ for mod in autodiscover_tasks(packages or (),
+                            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+                                               related_name) if mod)
+                                               ^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 246, in autodiscover_tasks
+    return [find_related_module(pkg, related_name) for pkg in packages]
+            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/venv/lib/python3.13/site-packages/celery/loaders/base.py", line 270, in find_related_module
+    return importlib.import_module(module_name)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1157, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1087, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/data/data/com.termux/files/home/projects/farmiclegrow-trace/server/apps/accounts/tasks.py", line 62
+    url = url
+          ^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
